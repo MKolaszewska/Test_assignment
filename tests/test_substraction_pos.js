@@ -46,7 +46,7 @@ describe('Create Android session', async function () {
 
     const delete_session = await client.deleteSession();
 
-   // await exec("adb emu kill");
+    await exec("adb -e emu ****");
 
   });
 });
