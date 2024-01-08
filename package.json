@@ -1,0 +1,27 @@
+{
+  "name": "appium_v2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test_add": "mocha tests/test_addition_pos.js --timeout 60000",
+    "test_div": "mocha tests/test_division_neg.js --timeout 60000",
+    "test_mul": "mocha tests/test_multiplication_neg.js --timeout 60000",
+    "test_sub": "mocha tests/test_substraction_pos.js --timeout 60000"
+
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "appium-uiautomator2-driver": "^2.36.0",
+    "chai": "^4.3.10",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^10.2.0",
+    "wd": "^1.14.0"
+  },
+  "devDependencies": {
+    "wdio-appium-service": "^0.2.3",
+    "webdriverio": "^8.27.0"
+  }
+}

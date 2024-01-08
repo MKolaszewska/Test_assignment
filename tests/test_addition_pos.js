@@ -1,0 +1,52 @@
+const webdriverio = require('webdriverio');
+const androidOptions = require('../helpers/capabilities').androidOptions;
+
+const exec = require("child_process").exec;
+const assert = require('chai').expect;
+
+describe('Create Android session', async function () {
+  let client;
+
+  before(async function () {
+    console.log('########## start');
+    const arguments = process.argv.slice(2);
+    console.log('Run arguments are');
+    arguments.forEach((val, index) => {
+      console.log(`${index}: ${val}`);
+    });
+
+    await exec("emulator.exe -avd " + arguments[3], (err, output) => {
+      // once the command has completed, the callback function is called
+      if (err) {
+        // log and return if we encounter an error
+        console.error("could not execute command: ", err)
+        return
+      }
+      // log the output received from the command
+      console.log("Output: \n", output)
+    });
+    client = await webdriverio.remote(androidOptions);
+  });
+
+  it('addition positive test', async function () {
+    const res = await client.status();
+
+    const digit1 = await client.$('~1');
+    const digit5 = await client.$('~5');
+    const plus = await client.$('~plus');
+    await digit1.click();
+    await plus.click();
+    await digit5.click();
+    const equal = client.$('~equals');
+    await equal.click();
+
+    const result = await client.$('android.widget.TextView').getText();
+
+    await assert(result).equal('6');
+
+    const delete_session = await client.deleteSession();
+
+    await exec("adb emu kill");
+
+  });
+});
