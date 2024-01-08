@@ -7,8 +7,8 @@
     "test_add": "mocha tests/test_addition_pos.js --timeout 60000",
     "test_div": "mocha tests/test_division_neg.js --timeout 60000",
     "test_mul": "mocha tests/test_multiplication_neg.js --timeout 60000",
-    "test_sub": "mocha tests/test_substraction_pos.js --timeout 60000"
-
+    "test_sub": "mocha tests/test_substraction_pos.js --timeout 60000",
+	"tests": "mocha tests/*.js --timeout 60000"
   },
   "keywords": [],
   "author": "",
