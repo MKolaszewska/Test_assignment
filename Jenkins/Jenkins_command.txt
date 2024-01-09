@@ -1,0 +1,31 @@
+@echo off
+SETLOCAL ENABLEDELAYEDEXPANSION
+
+echo Starting Appium server...
+start /B appium --base-path /wd/hub
+
+:: Define the command to compile project
+set INSTALL_COMMAND=npm install
+
+echo Running tests...
+CALL %INSTALL_COMMAND%
+
+:: Wait for Appium server to start
+timeout /t 10
+
+:: Define the command to run your tests using npm script
+set TEST_COMMAND=npm run tests Pixel_7
+
+echo Running tests...
+CALL %TEST_COMMAND%
+
+set EXIT_COMMAND=adb emu kill
+CALL %EXIT_COMMAND%
+
+:: Capture the exit status of the test run
+set TEST_STATUS=%ERRORLEVEL%
+
+echo Test run completed with exit code !TEST_STATUS!
+
+:: Exit with the test status code
+exit /b !TEST_STATUS!
